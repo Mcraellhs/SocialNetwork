@@ -1,0 +1,16 @@
+form{
+    float: right;
+}
+
+.dropdown-toggle{
+    cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-item{
+    cursor: pointer;
+}
