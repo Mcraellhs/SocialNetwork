@@ -1,11 +1,10 @@
 namespace SocialNetwork.API.Models
 {
-    public class Post
+    public class Chat
     {
         public int Id { get; set; }
+        public string Message { get; set; }
 
-        public string Text { get; set; }
-        
         public int UserId { get; set; }
 
         public User User { get; set; }

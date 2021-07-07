@@ -1,0 +1,32 @@
+<div class="container content">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        	<div class="card">
+        		<div class="card-header">Chat</div>
+        		<div class="card-body height3">
+        			<ul class="chat-list">
+        				<li *ngFor="let chat of chats" [class]="chat.username==decodedToken? in:out">
+        					
+        					<div class="chat-body">
+        						<div class="chat-message">
+        							<h5>{{chat.username}}</h5>
+        							<p>{{chat.message}}</p>
+        						</div>
+        					</div>
+        				</li>
+        			
+        			</ul>
+        		</div>
+        	</div>
+
+			<form #chatForm="ngForm" class="input_msg_write" (ngSubmit)="sendMessage()">  
+				
+				  <input type="text" name="message" class="write_msg"  placeholder="Type a message" required [(ngModel)]="model.message"/>
+				  <button [disabled]="!chatForm.valid" class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o"></i></button>
+				
+			</form>
+        </div>
+       
+    </div>
+</div>
+

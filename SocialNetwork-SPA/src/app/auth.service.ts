@@ -25,7 +25,7 @@ decodedToken:any;
        if(user){
          localStorage.setItem('token',user.data);
          this.decodedToken=this.jwtHelper.decodeToken(user.data);
-         console.log(this.decodedToken);
+         //console.log(this.decodedToken);
        }
      })
    )

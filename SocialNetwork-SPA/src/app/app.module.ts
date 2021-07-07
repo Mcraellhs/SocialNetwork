@@ -16,6 +16,10 @@ import { UserListComponent } from './user-list/user-list.component';
 import { PostsComponent } from './posts/posts.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
+import { ChatComponent } from './chat/chat.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserEditResolver } from './resolvers/user-edit.resolver';
+import { PreventUnSaved } from './_guards/prevent-unsaved.guard';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,9 @@ import { appRoutes } from './routes';
     HomeComponent,
     RegisterComponent,
     UserListComponent,
-    PostsComponent
+    PostsComponent,
+    ChatComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,7 @@ import { appRoutes } from './routes';
     
    // NgModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserEditResolver,PreventUnSaved],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

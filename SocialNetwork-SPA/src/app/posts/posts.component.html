@@ -1,1 +1,60 @@
-<p>posts works!</p>
+
+
+
+<div class="container">
+
+<div class="row">
+
+    
+    <form #postForm="ngForm" class="mb-5" (ngSubmit)="addPosts()">
+        <div class="form-group">
+          
+          <input type="text" name="text" class="form-control" required
+          id="formGroupExampleInput" [(ngModel)]="model.text" placeholder="Share your thoughts">
+
+        </div>
+       <button [disabled]="!postForm.valid" class="btn btn-outline mt-2" type="submit">Post</button>
+      </form>
+
+
+
+
+
+
+
+
+   <div class="mt-5 pb-5" *ngFor="let post of posts" >
+    <div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                    </div>
+                    <div class="ml-2">
+                        <div class="h5 m-2">{{post.username}}</div>
+                        
+                    </div>
+                    <button class="btn-primary"(click)="deletePost(post.postId)">deletetest</button>
+                    
+                </div>
+                <div>
+                   
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            
+
+            <p class="card-text">
+                {{post.text}}
+            </p>
+        </div>
+      
+    </div>
+
+</div>
+</div>
+
+</div>

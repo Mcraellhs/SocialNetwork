@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using SocialNetwork.API.Models;
 
-namespace SocialNetwork.API.Models
+namespace SocialNetwork.API.Dtos
 {
-    public class User
+    public class GetUserDtoDetailed
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -15,12 +16,6 @@ namespace SocialNetwork.API.Models
         public byte[] PasswordSalt { get; set; }
 
         public List<Post> Posts { get; set; }
-
-        public List<Chat> Chats { get; set; }
         
-
-
     }
-
-    
 }

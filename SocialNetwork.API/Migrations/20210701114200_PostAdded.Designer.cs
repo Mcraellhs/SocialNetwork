@@ -9,8 +9,8 @@ using SocialNetwork.API.Data;
 namespace SocialNetwork.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210615183810_UserPost")]
-    partial class UserPost
+    [Migration("20210701114200_PostAdded")]
+    partial class PostAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,7 @@ namespace SocialNetwork.API.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -71,9 +71,13 @@ namespace SocialNetwork.API.Migrations
 
             modelBuilder.Entity("SocialNetwork.API.Models.Post", b =>
                 {
-                    b.HasOne("SocialNetwork.API.Models.User", null)
+                    b.HasOne("SocialNetwork.API.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SocialNetwork.API.Models.User", b =>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ namespace SocialNetwork.API
             services.AddDbContext<DataContext>(x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddScoped<ISocialNetworkRepository,SocialNetworkRepository>();
+            services.AddAutoMapper(typeof (Startup));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options=>{
                 options.TokenValidationParameters = new TokenValidationParameters{
@@ -44,6 +47,7 @@ namespace SocialNetwork.API
 
                 };
             });
+            services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
             services.AddCors();
         }
 

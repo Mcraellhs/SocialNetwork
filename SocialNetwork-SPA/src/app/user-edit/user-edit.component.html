@@ -1,0 +1,90 @@
+<div class="container">
+    
+	<div class="row justify-content-center">
+		<div class="col-12 col-md-8 col-lg-6 pb-5">
+
+
+                    <!--Form with header-->
+
+                    <div *ngIf="userEditForm.dirty" class="alert alert-warning">
+                        <strong>Information:</strong>You have made changes any unsaved changes will be lost
+                    </div>
+
+                   
+
+                    <form #userEditForm="ngForm" (ngSubmit)="updateUser()" >
+                        <div class="card border-primary rounded-0">
+                            <div class="card-header p-0">
+                                <div class="bg-light text-info text-center py-2">
+                                    <h3> Edit profile</h3>
+                                    
+                                </div>
+                            </div>
+                            <div class="card-body p-3">
+
+                                <!--Body-->
+                                <div class="form-group">
+                                    <label for="">Username</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-user text-info"></i> </div>
+                                        </div>
+                                        <input type="text" class="form-control"  name="username" [(ngModel)]="user.username"  required>
+                                    </div>
+                                </div>
+                                
+                                 <label for="">Firstname</label>
+                                <div class="form-group">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-user text-info"></i> </div>
+                                        </div>
+                                        <input type="text" class="form-control"  name="firstname" [(ngModel)]="user.firstname" required>
+                                    </div>
+                                </div>
+                                  
+                                <label for="">Lastname</label>
+                                <div class="form-group">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-user text-info"></i> </div>
+                                        </div>
+                                        <input type="text" class="form-control"  name="lastname" [(ngModel)]="user.lastname" required>
+                                    </div>
+                                </div>
+                                 
+                                <label for="">Email</label>
+                                <div class="form-group">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-envelope text-info"></i></div>
+                                        </div>
+                                        <input type="email" class="form-control" name="email" [(ngModel)]="user.email"  required>
+                                    </div>
+                                </div>
+                                   
+                                <label for="">University</label>
+                                <div class="form-group">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-user text-info"></i> </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="university" [(ngModel)]="user.university" required>
+                                    </div>
+                                </div>
+
+                              
+
+                                <div class="text-center">
+                                    <button [disabled]="!userEditForm.dirty" type="submit" class="btn  btn-block rounded-0 py-2">Save changes</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <!--Form with header-->
+
+
+                </div>
+	</div>
+</div>
