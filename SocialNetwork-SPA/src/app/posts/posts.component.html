@@ -35,11 +35,15 @@
                         <div class="h5 m-2">{{post.username}}</div>
                         
                     </div>
-                    <button class="btn-primary"(click)="deletePost(post.postId)">deletetest</button>
-                    
-                </div>
-                <div>
+                  
                    
+                </div>
+                
+                <div>
+                    <div class="deletediv" [style.display]="decodedTOKEN.unique_name==post.username?styleBLOCK:styleNONE">
+                        <button style="border: none;" (click)="deletePost(post.postId)"><img style="width: 30px; height: 30px;" src="../assets/images/remove.png" alt="no img"></button>
+      
+                    </div>   
                 </div>
             </div>
 
