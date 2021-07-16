@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using SocialNetwork.API.Models;
+
 namespace SocialNetwork.API.Dtos
 {
     public class GetUserDto
@@ -9,6 +12,10 @@ namespace SocialNetwork.API.Dtos
         public string Lastname { get; set; }
         public string Email { get; set; }
         public string University { get; set; }
+
+        public string MainPhotoUrl { get; set; }
+
+        public List<Photo> ProfilePicture {get; set;}
         
     }
 }

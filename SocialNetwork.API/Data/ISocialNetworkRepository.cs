@@ -26,6 +26,10 @@ namespace SocialNetwork.API.Data
 
         Task<bool> deletePost(int id);
 
+        Task<bool> CreatePhoto(int id, PhotoForCreateDto photoForCreateDto);
+
+        Task<PhotoToReturnDto> GetPhoto(int id);
+
 
 
 

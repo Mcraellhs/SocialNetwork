@@ -1,0 +1,53 @@
+
+
+<div class="container mt-5">
+<div class="row">
+
+    <div class="col-sm-4">
+<div class="card">
+    <img class="card-img-top img-thumbnail" src="{{user?.mainPhotoUrl}}" alt="{{user?.firstname}}">
+    <div class="card-body">
+
+       <div class="">
+           <strong>Username:</strong>
+           <p>{{user?.username}}</p>
+       </div>
+
+       <div class="">
+        <strong>Firstname:</strong>
+        <p>{{user?.firstname}}</p> 
+    </div>
+
+    <div class="">
+        <strong>Lastname:</strong>
+        <p>{{user?.lastname}}</p> 
+    </div>
+
+    <div class="">
+        <strong>Email:</strong>
+        <p>{{user?.email}}</p> 
+    </div>
+
+    <div class="">
+        <strong>University:</strong>
+        <p>{{user?.university}}</p> 
+    </div>
+    
+    </div>
+</div>
+    </div>
+
+    <div class="col-sm-8">
+<div class="tab-panel">
+    <tabset>
+        <tab heading="{{user?.firstname}}'s pictures" id="tab1">
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+
+        </tab>
+        
+      </tabset>
+</div>
+    </div>
+
+</div>
+</div>

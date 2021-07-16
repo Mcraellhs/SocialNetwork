@@ -1,0 +1,12 @@
+.tab-panel {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+  }
+.ngx-gallery { display: inline-block; margin-bottom: 20px; }
+
+img.img-thumbnail{
+    height: 100px;
+    min-width: 100px !important;
+    margin-bottom: 2px;
+}

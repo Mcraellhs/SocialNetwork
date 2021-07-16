@@ -1,3 +1,4 @@
+import { Photo } from "./photo";
 import { Post } from "./post";
 
 export interface User {
@@ -8,6 +9,8 @@ export interface User {
     lastname:string;
     email:string;
     university:string;
+    mainPhotoUrl:string;
     posts?:Post[];
+    profilePicture:Photo[];
 
 }

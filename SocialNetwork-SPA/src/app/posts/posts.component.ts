@@ -15,19 +15,21 @@ export class PostsComponent implements OnInit {
 posts:Post[]=[];
 model:any={};
 
+
 styleNONE="none";
 styleBLOCK="block"
 
 
 jwtHelper = new JwtHelperService();
 decodedTOKEN=this.jwtHelper.decodeToken(localStorage.getItem('token') as any);
-  constructor(private _service:UserService, private alertify:AlertifyService, private authService:AuthService) { }
+  constructor(private _service:UserService, private alertify:AlertifyService,
+     private authService:AuthService) { 
+     }
 
   ngOnInit(): void {
    
     this.loadPosts()
-    
-    
+
     
 
   }

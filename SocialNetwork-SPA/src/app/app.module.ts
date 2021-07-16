@@ -20,6 +20,12 @@ import { ChatComponent } from './chat/chat.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserEditResolver } from './resolvers/user-edit.resolver';
 import { PreventUnSaved } from './_guards/prevent-unsaved.guard';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { UserDetailResolver } from './resolvers/user-detail.resolver';
+import { UserListResolver } from './resolvers/user-list.resolver';
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 
 @NgModule({
   declarations: [
@@ -30,19 +36,24 @@ import { PreventUnSaved } from './_guards/prevent-unsaved.guard';
     UserListComponent,
     PostsComponent,
     ChatComponent,
-    UserEditComponent
+    UserEditComponent,
+    UserDetailComponent,
+    PhotoEditorComponent,
+    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    NgxGalleryModule,
     FormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    TabsModule.forRoot(),
+    RouterModule.forRoot(appRoutes),
     
    // NgModule
   ],
-  providers: [AuthService, UserEditResolver,PreventUnSaved],
+  providers: [AuthService, UserEditResolver,PreventUnSaved,UserDetailResolver,UserListResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

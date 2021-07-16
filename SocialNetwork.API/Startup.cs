@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using SocialNetwork.API.Data;
+using SocialNetwork.API.Helpers;
 
 namespace SocialNetwork.API
 {
@@ -49,6 +50,7 @@ namespace SocialNetwork.API
             });
             services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

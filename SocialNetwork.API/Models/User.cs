@@ -14,9 +14,14 @@ namespace SocialNetwork.API.Models
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
 
+
         public List<Post> Posts { get; set; }
 
         public List<Chat> Chats { get; set; }
+
+        public List<Photo> ProfilePicture {get; set;}
+        public string MainPhotoUrl { get; set; }
+
         
 
 

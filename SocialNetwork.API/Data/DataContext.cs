@@ -12,6 +12,8 @@ namespace SocialNetwork.API.Data
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<Chat> Chats { get; set; }
+
+        public DbSet<Photo> Photos {get; set;}
         
             
         
