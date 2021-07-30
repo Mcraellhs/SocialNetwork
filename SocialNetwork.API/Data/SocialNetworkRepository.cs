@@ -13,6 +13,7 @@ namespace SocialNetwork.API.Data
 {
     public class SocialNetworkRepository : ISocialNetworkRepository
     {
+        private string defaultUrl="https://res.cloudinary.com/theviciousasp/image/upload/v1626458763/defaultuser_kc3obe.jpg";
         private readonly DataContext _context;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpaccessor;
@@ -45,9 +46,24 @@ namespace SocialNetwork.API.Data
                     getPostsDto.Text=listOfPost[i].Text;
 
                     
-                    var seta =await _context.Users.FirstOrDefaultAsync(x=>x.Id==listOfPost[i].UserId);
-                    getPostsDto.Username=seta.Username;
+                    var users =await _context.Users.FirstOrDefaultAsync(x=>x.Id==listOfPost[i].UserId);
+                    var photo = await _context.Photos.FirstOrDefaultAsync(x=>x.UserId==users.Id);
+                    getPostsDto.Username=users.Username;
                     getPostsDto.PostId=listOfPost[i].Id;
+                    getPostsDto.DateAdded=listOfPost[i].DateAdded;
+                    if(photo!=null){
+                       
+                    getPostsDto.UserPhotoUrl=photo.PhotoUrl;
+                    }
+                    
+                    // get photos instead of users profile pictures
+
+                    
+                    
+                    
+                    
+                    
+                    
 
 
                     posts.Add(getPostsDto);
@@ -65,13 +81,14 @@ namespace SocialNetwork.API.Data
 
         public async Task<GetUserDto> getUser(int id)
         {
-            var user = _mapper.Map<GetUserDto>(await _context.Users.Include(p=>p.ProfilePicture).FirstOrDefaultAsync(x => x.Id == id));
+            var user = _mapper.Map<GetUserDto>(await _context.Users.Include(p=>p.ProfilePicture).Include(s=>s.Posts).FirstOrDefaultAsync(x => x.Id == id));
            /*  var photo = await _context.Photos.FirstAsync(x=>x.UserId==id);
             user.ProfilePicture.Add(photo); */
          //  user.MainPhotoUrl=user.ProfilePicture.First(x=>x.isMain).PhotoUrl;
          if(!user.ProfilePicture.Exists(x=>x.isMain==true)){
              if(user.ProfilePicture.Count==0){
-                 user.MainPhotoUrl="https://i.dlpng.com/static/png/7173790_preview.png";
+                 user.MainPhotoUrl=this.defaultUrl;
+                 
              }
              else
              user.MainPhotoUrl=user.ProfilePicture.First().PhotoUrl;
@@ -83,8 +100,8 @@ namespace SocialNetwork.API.Data
 
         public async Task<List<GetUserDto>> getUsers()
         {
-            var user = await _context.Users.Include(p=>p.ProfilePicture).Select(x => _mapper.Map<GetUserDto>(x)).ToListAsync();
-            for(int i=0;i<user.Count;i++){
+            var user = await _context.Users.Include(p=>p.ProfilePicture).Include(s=>s.Posts).Select(x => _mapper.Map<GetUserDto>(x)).ToListAsync();
+             for(int i=0;i<user.Count;i++){
                 //user[i].MainPhotoUrl=user[i].ProfilePicture.First().PhotoUrl;
                 
                 if(user[i].ProfilePicture.Count!=0){
@@ -103,9 +120,9 @@ namespace SocialNetwork.API.Data
 
                 }
                 else{
-                    user[i].MainPhotoUrl="https://i.dlpng.com/static/png/7173790_preview.png";
+                    user[i].MainPhotoUrl=this.defaultUrl;
                 }
-            } 
+            }  
             
 
             return user;
@@ -250,6 +267,36 @@ namespace SocialNetwork.API.Data
 
 
             return _mapper.Map<PhotoToReturnDto>(photo);
+        }
+
+        public async Task<bool> SetMainPhoto(int userId,int id)
+        {
+            
+            var photosWithId = await _context.Photos.FirstOrDefaultAsync(x=>x.Id==id);
+            var photos=await _context.Photos.Where(u=>u.UserId==userId).FirstOrDefaultAsync(p=>p.isMain);
+            if(photos!=null){
+            photos.isMain=false;
+
+            }
+            photosWithId.isMain=true;
+
+            if(await _context.SaveChangesAsync()>0){
+            return true;
+
+            }
+            return false;
+        }
+
+        public async Task<bool> DeletePhotoFromUser(int id)
+        {
+            var photoToDelete= await _context.Photos.FirstOrDefaultAsync(x=>x.Id==id);
+
+            _context.Remove(photoToDelete);
+
+            if(await _context.SaveChangesAsync()>0){
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -5,6 +5,8 @@ import { AlertifyService } from '../alertify.service';
 import { AuthService } from '../auth.service';
 import { UserService } from '../user.service';
 import { User } from '../_models/user';
+import { FileUploader } from 'ng2-file-upload';
+import { Photo } from '../_models/photo';
 
 @Component({
   selector: 'app-user-edit',
@@ -20,7 +22,12 @@ export class UserEditComponent implements OnInit {
       $event.returnValue=true
     }
   }
-
+  uploader:FileUploader;
+  hasBaseDropZoneOver:boolean=false;
+  photos:Photo[];
+  
+  
+ 
   constructor(private route:ActivatedRoute, private alertify:AlertifyService,
     private authService:AuthService, private userService:UserService) { }
 
@@ -29,7 +36,13 @@ export class UserEditComponent implements OnInit {
     this.route.data.subscribe(data=>{
       this.user=data['user'];
      // console.log(this.user)
+     this.initializeUploader();
+     
     })
+  }
+
+  public fileOverBase(e:any):void {
+    this.hasBaseDropZoneOver = e;
   }
 
   updateUser(){
@@ -42,5 +55,58 @@ export class UserEditComponent implements OnInit {
     
 
   }
+
+  initializeUploader(){
+    this.uploader=new FileUploader({
+      url:"https://localhost:5001/users/"+this.authService.decodedToken.nameid+"/photos",
+      authToken:'Bearer '+localStorage.getItem('token'),
+      isHTML5:true,
+      allowedFileType:['image'],
+      removeAfterUpload:true,
+      autoUpload:false,
+      maxFileSize:10*1024*1024
+    })
+    this.uploader.onAfterAddingFile=(file)=>{file.withCredentials=false}
+    /*  this.uploader.onSuccessItem=(item,response, status, headers)=>{
+      if(response){
+        let res:Photo = JSON.parse(response);
+       
+        const photo={
+          id:res.id,
+          photoUrl:res.photoUrl,
+          publicId:res.publicId,
+          isMain:res.isMain
+          
+
+        }
+      this.photos.push(photo) 
+      }
+    }  */
+   
+  }
+
+  setMainPhoto(photoId){
+    this.userService.setMainPhoto(photoId).subscribe(()=>{
+      this.alertify.success("Photo set as main");
+      
+      window.location.reload();
+
+    },error=>{
+      this.alertify.error("Failed to set to main");
+      console.log(this.authService.decodedToken.nameid)
+      
+    })
+  }
+
+  deletePhotoFromUser(id:number){
+    this.userService.deleteUserPhoto(id).subscribe(()=>{
+      this.alertify.success("Photo deleted successfully");
+      
+    },error=>{
+      this.alertify.error("Failed to delete photo");
+    })
+  }
+
+  
 
 }

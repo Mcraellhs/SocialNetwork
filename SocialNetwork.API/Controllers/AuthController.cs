@@ -56,5 +56,12 @@ namespace SocialNetwork.API.Controllers
       return Ok(serviceResponse);
 
          }
+
+         [HttpGet("guestLogin")]
+         public async Task<IActionResult> GuestLogin(){
+
+             ServiceResponse<string> serviceResponse = await _repo.GuestLogin();
+             return Ok(serviceResponse);
+         }
     }
 }

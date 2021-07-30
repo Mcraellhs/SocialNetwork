@@ -1,6 +1,8 @@
 export interface Post {
-    postId:number;
+    id:number;
     text:string;
-    username:string;
+   username:string;
     userId:string;
+    dateAdded:Date;
+    userPhotoUrl:string
 }

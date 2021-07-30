@@ -1,11 +1,13 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.API.Data;
 using SocialNetwork.API.Dtos;
 
 namespace SocialNetwork.API.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostsController : ControllerBase
@@ -33,6 +35,11 @@ namespace SocialNetwork.API.Controllers
 
         [HttpPost]
         public async Task<IActionResult> AddPost(AddPostDto request){
+
+             if(request.UserId !=int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
+              return Unauthorized();
+          }
+
             
             await _repo.addPost(request);
             return StatusCode(201);

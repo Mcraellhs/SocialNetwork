@@ -26,7 +26,12 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { UserDetailResolver } from './resolvers/user-detail.resolver';
 import { UserListResolver } from './resolvers/user-list.resolver';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter(){
+  return localStorage.getItem('token');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +55,14 @@ import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
+    FileUploadModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter:tokenGetter,
+        allowedDomains:['localhost:5001','localhost:5000']
+        
+      }
+    })
     
    // NgModule
   ],

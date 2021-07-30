@@ -1,10 +1,12 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.API.Data;
 using SocialNetwork.API.Dtos;
 
 namespace SocialNetwork.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ChatsController : ControllerBase

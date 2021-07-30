@@ -16,6 +16,8 @@ namespace SocialNetwork.API.Dtos
         public string MainPhotoUrl { get; set; }
 
         public List<Photo> ProfilePicture {get; set;}
+        public List<Post> Posts { get; set; }
+
         
     }
 }

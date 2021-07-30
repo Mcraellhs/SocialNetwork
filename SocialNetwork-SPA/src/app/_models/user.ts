@@ -10,7 +10,7 @@ export interface User {
     email:string;
     university:string;
     mainPhotoUrl:string;
-    posts?:Post[];
+    posts:Post[];
     profilePicture:Photo[];
 
 }

@@ -22,7 +22,8 @@ namespace SocialNetwork.API.Controllers
             _repo = repo;
 
         }
-
+        
+        
         [HttpGet]
 
         public async Task<IActionResult> GetUsers()
@@ -37,7 +38,7 @@ namespace SocialNetwork.API.Controllers
 
 
         }
-
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {

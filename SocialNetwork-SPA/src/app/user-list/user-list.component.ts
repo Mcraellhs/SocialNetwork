@@ -12,12 +12,15 @@ import { User } from '../_models/user';
 export class UserListComponent implements OnInit {
 
    users:User[]=[];
+   defaultPhoto="https://res.cloudinary.com/theviciousasp/image/upload/v1626458763/defaultuser_kc3obe.jpg";
   constructor(private userService:UserService,private alertify:AlertifyService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
 this.route.data.subscribe(data=>{
   this.users=data['users'];
+  
 })
+
  //   this.loadUsers()
   }
 

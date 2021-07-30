@@ -30,6 +30,12 @@ namespace SocialNetwork.API.Data
 
         Task<PhotoToReturnDto> GetPhoto(int id);
 
+        Task<bool> SetMainPhoto(int id,int userId);
+
+        Task<bool> DeletePhotoFromUser(int id);
+
+        
+
 
 
 

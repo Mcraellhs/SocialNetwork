@@ -14,13 +14,15 @@ export class UserListResolver implements Resolve<User[]>{
     constructor(private userService:UserService,private alertify:AlertifyService,
          private router:Router){ }
     resolve(route: ActivatedRouteSnapshot):  Observable<User[]>  {
-      return this.userService.getUsers().pipe(
+      return this.userService.getUsers()
+       .pipe(
           catchError(error=>{
               this.alertify.error("Failed to load data");
+             // window.location.reload();
               this.router.navigate(["/home"]);
               return of(null);
           })
-      )
+      ) 
     }
          
 

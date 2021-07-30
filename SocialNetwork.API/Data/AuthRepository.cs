@@ -152,7 +152,16 @@ namespace SocialNetwork.API.Data
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task<ServiceResponse<string>> GuestLogin()
+        {
+            ServiceResponse<string> serviceResponse= new ServiceResponse<string>();
+           var guestUSer= await _context.Users.FirstOrDefaultAsync(x=>x.Id==1337);
 
+            
+            serviceResponse.Data = CreateToken(guestUSer);
+            return serviceResponse;
 
+           throw new Exception("ex");
+        }
     }
 }

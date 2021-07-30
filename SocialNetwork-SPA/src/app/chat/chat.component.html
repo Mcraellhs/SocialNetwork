@@ -1,6 +1,7 @@
 <div class="container content">
     <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		<div class="col-lg-3 col-md-3 col-sm-0 "></div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
         	<div class="card">
         		<div class="card-header">Chat</div>
         		<div class="card-body height3">
@@ -22,7 +23,7 @@
 			<form #chatForm="ngForm" class="input_msg_write" (ngSubmit)="sendMessage()">  
 				
 				  <input type="text" name="message" class="write_msg"  placeholder="Type a message" required [(ngModel)]="model.message"/>
-				  <button [disabled]="!chatForm.valid" class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o"></i></button>
+				  <button [disabled]="!chatForm.valid" class="msg_send_btn btn btn-link" type="submit"><i class="fa fa-paper-plane-o"></i></button>
 				
 			</form>
         </div>

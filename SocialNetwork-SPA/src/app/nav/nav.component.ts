@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { error } from 'protractor';
 import { AlertifyService } from '../alertify.service';
 import { AuthService } from '../auth.service';
 
@@ -10,9 +12,11 @@ import { AuthService } from '../auth.service';
 })
 export class NavComponent implements OnInit {
 model:any={}
+
   constructor(public authService:AuthService,private alertify:AlertifyService, private router:Router) { }
 
   ngOnInit(): void {
+
   }
 
 
@@ -20,7 +24,9 @@ model:any={}
     this.authService.login(this.model).subscribe(data=>{
      // this.model=data;
      this.alertify.success("Successfully logged in");
+     
      this.router.navigate(['/users']);
+    
     },error=>{
       this.alertify.error("Failed to log in")
     })
@@ -36,6 +42,16 @@ model:any={}
     this.alertify.warning("Logged Out")
     this.router.navigate(['/home']);
 
+  }
+
+  guestLogin(){
+    this.authService.guestLogin().subscribe(data=>{
+      this.alertify.success("Successfully logged in");
+     
+     this.router.navigate(['/users']);
+    },error=>{
+      this.alertify.error("Failed to log in");
+    })
   }
 
 }

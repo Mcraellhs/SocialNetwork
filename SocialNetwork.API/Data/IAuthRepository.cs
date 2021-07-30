@@ -12,6 +12,8 @@ namespace SocialNetwork.API.Data
 
          Task<bool> UserExist(string username);
 
+         Task<ServiceResponse<string>> GuestLogin();
+
 
     }
 }

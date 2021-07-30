@@ -4,7 +4,7 @@
     
         <div class="col-sm-4">
     <div class="card">
-        <img class="card-img-top img-thumbnail" src="{{user?.profilePicture[0].photoUrl}}" alt="{{user?.firstname}}">
+        <img class="card-img-top" src="{{user?.mainPhotoUrl}}" alt="{{user?.firstname}}">
         <div class="card-body">
     
            <div class="">
@@ -58,20 +58,20 @@
 
                             <!--Body-->
                             <div class="form-group">
-                                <label for="">Username</label>
+                                <label>Username</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-user text-info"></i> </div>
+                                        <div class="input-group-text editicon"><i class="fa fa-user text-info"></i> </div>
                                     </div>
                                     <input type="text" class="form-control"  name="username" [(ngModel)]="user.username"  required>
                                 </div>
                             </div>
                             
-                             <label for="">Firstname</label>
+                             <label>Firstname</label>
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-user text-info"></i> </div>
+                                        <div class="input-group-text editicon"><i class="fa fa-user text-info"></i> </div>
                                     </div>
                                     <input type="text" class="form-control"  name="firstname" [(ngModel)]="user.firstname" required>
                                 </div>
@@ -81,27 +81,27 @@
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-user text-info"></i> </div>
+                                        <div class="input-group-text editicon"><i class="fa fa-user text-info"></i> </div>
                                     </div>
                                     <input type="text" class="form-control"  name="lastname" [(ngModel)]="user.lastname" required>
                                 </div>
                             </div>
                              
-                            <label for="">Email</label>
+                            <label>Email</label>
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-envelope text-info"></i></div>
+                                        <div class="input-group-text editicon"><i class="fa fa-envelope text-info"></i></div>
                                     </div>
                                     <input type="email" class="form-control" name="email" [(ngModel)]="user.email"  required>
                                 </div>
                             </div>
                                
-                            <label for="">University</label>
+                            <label >University</label>
                             <div class="form-group">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-user text-info"></i> </div>
+                                        <div class="input-group-text editicon"><i class="fa fa-user text-info"></i> </div>
                                     </div>
                                     <input type="text" class="form-control" name="university" [(ngModel)]="user.university" required>
                                 </div>
@@ -125,15 +125,72 @@
                     <div class="col-sm-2" *ngFor="let slika of user.profilePicture" >
                         <img src="{{slika.photoUrl}}" class="img-thumbnail p-2" alt="">
                         <div class="text-center">
-                            <button type="button" class="btn btn-sm">Main</button>
-                            <button type="button" class="btn btn-info"> <i class="fa fa-trash-o"></i> </button>
+                            <button type="button" class="btn btn-sm"
+                             [disabled]="slika.isMain"
+                             [ngClass]="slika.isMain? 'btn-success active':'btn-secondary'"
+                              (click)="setMainPhoto(slika.id)">Main</button>
+                            <button type="button" class="btn btn-sm btn-info" (click)="deletePhotoFromUser(slika.id)"> <i class="fa fa-trash-o"></i> </button>
                         
                         </div>
                             </div>
                        
                 </div>
                 
-                 
+                <div class="row mt-3">
+ 
+                    <div class="col-md-3">
+             
+                        <h3>Select files</h3>
+             
+                        <div ng2FileDrop
+                             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                             (fileOver)="fileOverBase($event)"
+                             [uploader]="uploader"
+                             class="card bg-faded p-3 text-center mb-3 my-drop-zone">
+                             <i class="fa fa-upload fa-3x"></i>
+                            Base drop zone
+                        </div>
+             
+                       
+             
+                        Multiple
+                        <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+             
+                        Single
+                        <input type="file" ng2FileSelect [uploader]="uploader" />
+                    </div>
+             
+                    <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
+             
+                        <h3>Upload queue</h3>
+                        <p>Queue length: {{ uploader?.queue?.length }}</p>
+             
+                        
+             
+                        <div>
+                            <div>
+                                Queue progress:
+                                <div class="progress" style="">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success btn-s"
+                                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                <span class="fa fa-upload"></span> Upload all
+                            </button>
+                            <button type="button" class="btn btn-warning btn-s"
+                                    (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                                <span class="fa fa-ban"></span> Cancel all
+                            </button>
+                            <button type="button" class="btn btn-danger btn-s"
+                                    (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                                <span class="fa fa-trash"></span> Remove all
+                            </button>
+                        </div>
+             
+                    </div>
+             
+                </div>
   
             </tab>
             
@@ -143,3 +200,5 @@
     
     </div>
     </div>
+
+   

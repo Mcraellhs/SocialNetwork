@@ -90,6 +90,41 @@ namespace SocialNetwork.API.Controllers
 
       }
 
+      [HttpPost("{id}/setMain")]
+
+      public async Task<IActionResult> SetMainPhoto(int userId,
+      int id){
+
+          if(userId !=int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
+              return Unauthorized();
+          }
+
+          if(await _repo.SetMainPhoto(userId,id)){
+              return NoContent();
+          }
+
+          return BadRequest();
+
+
+      }
+
+      [HttpDelete("{id}")]
+
+      public async Task<IActionResult> DeleteUserPhoto(int id, int userId){
+            if(userId !=int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
+              return Unauthorized();
+          }
+
+          if(await _repo.DeletePhotoFromUser(id)){
+              return NoContent();
+          }
+          else{
+              return BadRequest();
+          }
+
+      }
+
+
         
     }
 }

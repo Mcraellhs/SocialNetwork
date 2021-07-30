@@ -1,5 +1,6 @@
 form{
     float: right;
+    
 }
 
 .dropdown-toggle{
@@ -9,8 +10,26 @@ form{
 a{
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 
 .dropdown-item{
     cursor: pointer;
+}
+
+.form-div{
+    float: right;
+}
+input{
+    height: 37px;
+    border-radius: 25px;
+}
+
+.btn{
+    border-radius: 25px;
+    
+}
+
+nav{
+    border-bottom:1px solid gray;
 }
